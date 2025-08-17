@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"utf-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+  <title>Happy Birthday Anjali 🎂</title>
+  <meta name=\"description\" content=\"Interactive Birthday Wish for Anjali with fun questions, slideshow and music.\">
+  <style>
+    :root{
+      --bg1:#0f0f12;
+      --bg2:#191e2b;
+      --pri:#ff5c8a;
+      --sec:#7aa2ff;
+      --txt:#e8eaf6;
+      --muted:#aab3d0;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--txt);
+      background: radial-gradient(1100px 700px at 10% -10%, #242b3d 0%, transparent 60%), linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+    .wrap{min-height:100%; display:flex; align-items:center; justify-content:center; padding:20px}
+    .card{
+      width:min(820px,94vw); background:#141824cc; backdrop-filter: blur(10px);
+      border:1px solid #2a3042; border-radius:24px; box-shadow:0 20px 50px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    header{padding:22px 22px 12px; text-align:center; border-bottom:1px solid #242a3d}
+    header h1{margin:0; font-size:clamp(22px,4.8vw,34px); color:#ffd166; letter-spacing:.2px}
+    header p{margin:6px 0 0; color:#aab3d0}
+    main{padding:20px}
+    .center{text-align:center}
+    .hidden{display:none}
+    .btns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px}
+    button{
+      border:0; padding:12px 18px; border-radius:14px; font-weight:700; cursor:pointer;
+      background:linear-gradient(90deg,var(--sec),var(--pri)); color:#0b0d14;
+      box-shadow:0 10px 24px rgba(122,162,255,.25); transition:transform .08s ease;
+    }
+    button:active{transform:translateY(1px)}
+    .btn-outline{background:transparent; color:var(--sec); border:2px solid var(--sec); box-shadow:none}
+    .progress{height:8px; background:#252b3e; border-radius:999px; overflow:hidden; margin:14px auto; width:min(520px,84%)}
+    .bar{height:100%; width:0%; background:linear-gradient(90deg,var(--sec),var(--pri)); transition:width .35s ease}
+    .badge{display:inline-flex; align-items:center; gap:8px; font-size:12px; background:#0e1220; padding:6px 10px; border-radius:999px; border:1px solid #2a3042; color:#9fb0ff}
+    .panel{padding:18px 14px}
+    .qtext{font-size:clamp(18px,3.6vw,24px); text-align:center; margin:8px 0}
+    .stage{position:relative; width:min(680px,92%); margin:10px auto 0; aspect-ratio: 4 / 5; border-radius:16px; overflow:hidden; border:1px solid #2a3042; box-shadow:0 12px 30px rgba(0,0,0,.25)}
+    .stage img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.9s ease}
+    .stage img.active{opacity:1}
+    .caption{margin-top:10px; color:#aab3d0}
+    .cake{width:min(420px,78%); margin:12px auto}
+    hr{border:0; height:1px; background:#262c3e; margin:16px 0}
+    footer{padding:12px 18px; text-align:center; color:#8090b5; font-size:12px; border-top:1px solid #242a3d}
+    .confetti{position:fixed; top:-10vh; left:0; width:100%; pointer-events:none}
+    .confetti span{position:absolute; top:-10vh; font-size:22px; animation:fall linear forwards;}
+    @keyframes fall{to{transform:translateY(120vh) rotate(360deg); opacity:0}}
+  </style>
+</head>
+<body>
+  <div class=\"wrap\">
+    <div class=\"card\" role=\"main\" aria-live=\"polite\">
+      <header>
+        <h1>✨ Happy 16th Birthday Anjali Sahani 🎂🎉 ✨</h1>
+        <p>Born on 18th August 2009</p>
+      </header>
+
+      <main>
+        <section id=\"quiz\" class=\"panel\">
+          <div class=\"center\">
+            <div class=\"badge\"><span id=\"qCount\">0</span>/5 Questions</div>
+            <div class=\"progress\" aria-label=\"Progress\"><div id=\"bar\" class=\"bar\"></div></div>
+          </div>
+          <div id=\"qText\" class=\"qtext\">Ready for some fun?</div>
+          <div class=\"btns\">
+            <button id=\"yesBtn\" type=\"button\">Yes</button>
+            <button id=\"noBtn\" class=\"btn-outline\" type=\"button\">No</button>
+          </div>
+        </section>
+
+        <section id=\"gate\" class=\"panel hidden center\">
+          <h2>All set! 🎉</h2>
+          <p>Tap to open your birthday surprise.</p>
+          <div class=\"btns\"><button id=\"openBtn\" type=\"button\">Open 🎁</button></div>
+        </section>
+
+        <section id=\"wishes\" class=\"panel hidden\">
+          <div class=\"center\">
+            <h2>Happy Sweet 16, Anjali! 🥳</h2>
+            <p class=\"caption\">May your day be filled with laughter, love, and unforgettable moments.</p>
+          </div>
+
+          <div class=\"stage\" id=\"stage\">
+            <img src=\"1.jpg\" alt=\"Anjali photo 1\" class=\"active\">
+            <img src=\"2.jpg\" alt=\"Anjali photo 2\">
+            <img src=\"3.jpg\" alt=\"Anjali photo 3\">
+          </div>
+
+          <div class=\"center caption\">Your photos will gently fade every few seconds.</div>
+
+          <div class=\"center\">
+            <svg class=\"cake\" viewBox=\"0 0 300 220\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Birthday Cake\">
+              <defs>
+                <linearGradient id=\"g1\" x1=\"0\" x2=\"0\" y1=\"0\" y2=\"1\">
+                  <stop offset=\"0%\" stop-color=\"#ffe6f0\"/>
+                  <stop offset=\"100%\" stop-color=\"#ffc2d1\"/>
+                </linearGradient>
+                <linearGradient id=\"g2\" x1=\"0\" x2=\"0\" y1=\"0\" y2=\"1\">
+                  <stop offset=\"0%\" stop-color=\"#fff3b0\"/>
+                  <stop offset=\"100%\" stop-color=\"#ffd166\"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx=\"150\" cy=\"200\" rx=\"110\" ry=\"12\" fill=\"#223\"/>
+              <rect x=\"60\" y=\"130\" width=\"180\" height=\"50\" rx=\"10\" fill=\"url(#g1)\" stroke=\"#ff99ad\"/>
+              <path d=\"M60 140 q20 20 40 0 t40 0 t40 0 t40 0 v40 h-160z\" fill=\"#ff8fab\" opacity=\".7\"/>
+              <rect x=\"85\" y=\"95\" width=\"130\" height=\"40\" rx=\"10\" fill=\"url(#g2)\" stroke=\"#f7b801\"/>
+              <rect x=\"147\" y=\"55\" width=\"6\" height=\"40\" rx=\"3\" fill=\"#8d99ae\"/>
+              <path d=\"M150 40 q10 10 0 20 q-10 -10 0 -20\" fill=\"#ff5c8a\">
+                <animate attributeName=\"opacity\" values=\"1;0.4;1\" dur=\"1.2s\" repeatCount=\"indefinite\"/>
+              </path>
+            </svg>
+          </div>
+
+          <hr/>
+
+          <div class=\"center\">
+            <h3>Wishes & Quotes ✨</h3>
+            <p class=\"caption\">Your smile is magic—keep shining bright! 🌟</p>
+            <p class=\"caption\">Here’s to sweet memories, new adventures, and endless happiness.</p>
+            <p class=\"caption\">Happy 16th Birthday, Anjali! 💖</p>
+          </div>
+
+          <hr/>
+
+          <div class=\"center\">
+            <h3>Did you like it? 🙂</h3>
+            <div class=\"btns\">
+              <button id=\"likeYes\" type=\"button\">Yes</button>
+              <button id=\"likeNo\" class=\"btn-outline\" type=\"button\">No</button>
+            </div>
+            <p id=\"feedback\" style=\"min-height:28px; font-weight:700\"></p>
+          </div>
+        </section>
+      </main>
+
+      <footer>Made with love for Anjali</footer>
+    </div>
+  </div>
+
+  <div class=\"confetti\" id=\"confetti\"></div>
+
+  <script>
+    const QUESTIONS = [
+      \"Are you ready for your surprise?\",
+      \"Do you love chocolates? 🍫\",
+      \"Will you share your cake with us? 🎂\",
+      \"Do we need a selfie together? 🤳\",
+      \"Should we open the gift now? 🎁\"
+    ];
+
+    const qText = document.getElementById('qText');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const qCount = document.getElementById('qCount');
+    const bar = document.getElementById('bar');
+    const quiz = document.getElementById('quiz');
+    const gate = document.getElementById('gate');
+    const wishes = document.getElementById('wishes');
+    const likeYes = document.getElementById('likeYes');
+    const likeNo = document.getElementById('likeNo');
+    const feedback = document.getElementById('feedback');
+
+    let qi = 0;
+    qText.textContent = QUESTIONS[qi];
+    qCount.textContent = qi+1;
+
+    function nextQ(){
+      qi++;
+      if(qi < QUESTIONS.length){
+        qText.textContent = QUESTIONS[qi];
+        qCount.textContent = qi+1;
+        bar.style.width = (qi/QUESTIONS.length*100).toFixed(0)+'%';
+      }else{
+        bar.style.width = '100%';
+        quiz.classList.add('hidden');
+        gate.classList.remove('hidden');
+      }
+    }
+
+    yesBtn.addEventListener('click', ()=>{ confettiSprinkle(); nextQ(); });
+    noBtn.addEventListener('click', ()=>{ nextQ(); });
+
+    document.getElementById('openBtn').addEventListener('click', ()=>{
+      gate.classList.add('hidden');
+      wishes.classList.remove('hidden');
+      startMusic();
+      startSlides();
+      confettiBurst();
+    });
+
+    likeYes?.addEventListener('click', ()=>{ feedback.textContent = \"Yay! 🎉 Happy Birthday Anjali!\"; confettiBurst(); });
+    likeNo?.addEventListener('click', ()=>{ feedback.textContent = \"Noted! We’ll make it even better next time 💪\"; });
+
+    function startSlides(){
+      const imgs = Array.from(document.querySelectorAll('.stage img'));
+      let idx = 0;
+      setInterval(()=>{
+        imgs[idx].classList.remove('active');
+        idx = (idx + 1) % imgs.length;
+        imgs[idx].classList.add('active');
+      }, 2600);
+    }
+
+    let audioCtx, master;
+    function startMusic(){
+      if(audioCtx) return;
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      master = audioCtx.createGain();
+      master.gain.value = 0.05;
+      master.connect(audioCtx.destination);
+      playLoop();
+    }
+    function beep(freq, when, dur){
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'sine';
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0, when);
+      g.gain.linearRampToValueAtTime(0.25, when+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, when+dur);
+      o.connect(g); g.connect(master);
+      o.start(when); o.stop(when+dur+0.05);
+    }
+    function playLoop(){
+      const now = audioCtx.currentTime + 0.05;
+      const scale = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63];
+      for(let i=0;i<scale.length;i++){
+        const t = now + i*0.35;
+        beep(scale[i], t, 0.28);
+      }
+      setTimeout(playLoop, 2400);
+    }
+
+    const confettiWrap = document.getElementById('confetti');
+    function confettiSprinkle(){
+      const s = document.createElement('span');
+      s.textContent = [\"🎉\",\"✨\",\"🎈\",\"💖\",\"🎊\"][Math.floor(Math.random()*5)];
+      s.style.left = (Math.random()*100)+\"%\";
+      s.style.fontSize = (18+Math.random()*16)+\"px\";
+      s.style.animationDuration = (3+Math.random()*3)+\"s\";
+      confettiWrap.appendChild(s);
+      setTimeout(()=> s.remove(), 6000);
+    }
+    function confettiBurst(){ for(let i=0;i<24;i++) setTimeout(confettiSprinkle, i*40); }
+  </script>
+</body>
+</html>
